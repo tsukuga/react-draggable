@@ -1,0 +1,9 @@
+h1, p {
+  font-family: Lato;
+}
+
+.box{
+  border: solid 1px #ddd;
+  background-color: #ffffff;
+  opacity: 0.7;
+}
