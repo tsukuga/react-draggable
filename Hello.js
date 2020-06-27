@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import {Rnd} from 'react-rnd'
 import './style.css';
 
@@ -10,7 +10,11 @@ const Draggable = () =>{
     }
   );
 
-  return <Rnd
+  useEffect(()=>{console.log(infos.x)},[infos.x])
+
+  return( 
+    <>
+       <Rnd
         className="box"
         size={{ width: infos.width, height: infos.height }}
         position={{ x: infos.x, y: infos.y }}
@@ -24,11 +28,21 @@ const Draggable = () =>{
                     ...position
                     });
         }}
-        resizeGrid={[10, 10]}
+        resizeGrid={[1, 1]}
         dragGrid={[10, 10]}
          >
-         納入先正式名
+        
         </Rnd>
+
+        <Resize resize={()=>setPostion({x:100,y:200})}/>
+    </>
+  )
+}
+
+const Resize = (props)=>{
+
+    return <button className="box" type="button" onClick={props.resize}>サイズ変更</button>
+  
 }
 
 export default Draggable
