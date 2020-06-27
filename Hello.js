@@ -6,8 +6,7 @@ const Draggable = () =>{
 
   const [infos,setPostion] = useState(
     {
-     width:100,height:200,
-     x:100,y:200,
+     width:100,height:200,x:100,y:200,
     }
   );
 
@@ -25,10 +24,10 @@ const Draggable = () =>{
                     ...position
                     });
         }}
-        resizeGrid={[1, 1]}
+        resizeGrid={[10, 10]}
         dragGrid={[10, 10]}
          >
-         Start editing to see some magic happen :)
+         納入先正式名
         </Rnd>
 }
 
