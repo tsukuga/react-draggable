@@ -7,40 +7,46 @@ const Draggable = () =>{
   const [infos,setPostion] = useState(
     {
      width:100,height:200,x:100,y:200,
-     style: {
-        textAlign: "center",
-        fontWeight: 'normal',
-        visible: false
-      },
     }
   );
 
-  useEffect(()=>{console.log(infos.x)},[infos.x])
+  const [styles,setStyle] = useState(
+    {
+      textAlign: "left",
+      fontWeight: 'normal',
+      visible: false
+    }
+  )
+
+  useEffect(()=>{console.log(infos),console.log(styles)},[infos,styles])
 
   return( 
     <>
        <Rnd
-        className="box"　style={infos.style}
+        className="box"　style={styles}
         size={{ width: infos.width, height: infos.height }}
         position={{ x: infos.x, y: infos.y }}
         onDragStop={(e,d)=>{
-          setPostion({...d})
+          setPostion({...d,...styles})
         }}
         onResizeStop={(e, direction, ref, delta, position) => {
           setPostion({
                     width: ref.style.width,
                     height: ref.style.height,
-                    ...position
+                    ...position,
+                    ...styles
                     });
         }}
         resizeGrid={[1, 1]}
-        dragGrid={[10, 10]}
+        dragGrid={[1, 1]}
          >
         疲れた
         </Rnd>
-
-        <Resize resize={()=>setPostion({x:100,y:200})}/>
-        <ChangeStyle Bold={()=>setPostion({style：{center:'center'}})/>
+        <Resize resize={()=>setPostion({...infos,x:100,y:200})}/>
+        <ChangeStyle elementName="left"   element={()=>setStyle({...styles,textAlign:"left"})}/>
+        <ChangeStyle elementName="center" element={()=>setStyle({...styles,textAlign:"center"})}/>
+        <ChangeStyle elementName="right"  element={()=>setStyle({...styles,textAlign:"right"})}/>
+        <ChangeStyle elementName="B"      element={()=>setStyle({...styles,fontWeight:"bold"})}/>
 
     </>
   )
@@ -52,7 +58,7 @@ const Resize = (props)=>{
 
 
 const ChangeStyle = (props)=>{
-    return <button className="box" type="button" onClick={props.resize}>B</button>
+    return <button className="box" type="button" onClick={props.element}>{props.elementName}</button>
 }
 
 export default Draggable
